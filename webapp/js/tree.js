@@ -69,7 +69,7 @@ var treeStore = Ext.create('Ext.data.TreeStore', {
                 { text: "book report", leaf: true },
                 { text: "alegrbra", leaf: true}
             ] },
-            { text: "buy lottery tickets", leaf: true }
+            { text: "buy lottery tickets", id: "haha", leaf: true }
         ]
     }
 });
@@ -80,8 +80,21 @@ var treeStore = Ext.create('Ext.data.TreeStore', {
 		width: 300,
 		store: treeStore,
 		rootVisible: false,
-		renderTo: Ext.getCmp('viewport')
+		renderTo: Ext.getCmp('viewport'),
+		onItemclick: function ( a, b, c , d, e  ){
+			 console.log(d); 
+	 
+		//treePancel.getStore().insert(d,{ text: "new node" + d, leaf: false});
+			treePancel.getRootNode().insertChild(d,{ text: "new node" + d, leaf: true});
+			//treePancel.getStore().add({some: 'data'}, {some: 'other data'});
+			 //var selectedItem = treePancel.getSelectionModel().getSelection();
+			// alert(selectedItem);
+			 //console.log( selectedItem);
+			  //selectedItem.parentNode.insertBefore(newNode, selectedItem.nextSibling);
+		}
 	});
+	
+	treePancel.on("itemClick", treePancel.onItemclick, this);
 	
    var viewport = Ext.create('Ext.container.Viewport', {
 	   id: 'viewport',
@@ -96,7 +109,7 @@ var treeStore = Ext.create('Ext.data.TreeStore', {
 function add_handler(){
 	var v_grid = Ext.getCmp('usergrid');
 	//v_grid.stopEditing();
-	var v_record = {firstName : '',lastName : '',email:'',birthday:''};
+	var v_record = {firstName : '',lastName : '',email:'',birthday: new Date()};
 	v_grid.getStore().insert(0,v_record);
 }
 
